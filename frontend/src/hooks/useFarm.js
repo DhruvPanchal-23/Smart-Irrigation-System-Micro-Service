@@ -1,0 +1,2 @@
+import { useCallback, useEffect, useState } from 'react'; import * as farms from '../services/farmService.js';
+export default function useFarm() { const [items,setItems]=useState([]),[loading,setLoading]=useState(true),[error,setError]=useState(''); const load=useCallback(async()=>{setLoading(true);setError('');try{setItems(await farms.getFarms());}catch(e){setError(e.response?.data?.message||'Could not load farms');}finally{setLoading(false);}},[]); useEffect(()=>{load();},[load]); return {items,loading,error,reload:load}; }

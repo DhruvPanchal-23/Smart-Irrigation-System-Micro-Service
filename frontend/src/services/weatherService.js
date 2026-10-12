@@ -1,0 +1,1 @@
+import api from './api.js'; export const getCurrentWeather = (id) => api.get(`/weather/${id}`).then((r) => r.data.data); export const getWeatherHistory = (id) => api.get(`/weather/${id}/history`).then((r) => r.data.data);

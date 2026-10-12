@@ -1,0 +1,5 @@
+import bcrypt from 'bcryptjs'; import User from '../models/User.js'; import { signToken } from '../config/jwt.js'; import { AppError } from '../utils/apiResponse.js';
+const safeUser = (user) => ({ id: user.id, name: user.name, email: user.email, mobile: user.mobile, role: user.role, status: user.status });
+export const register = async ({ name, email, mobile, password }) => { const normalized = email.trim().toLowerCase(); if (await User.exists({ email: normalized })) throw new AppError(409, 'Email is already registered', 'EMAIL_EXISTS'); const user = await User.create({ name, email: normalized, mobile, password: await bcrypt.hash(password, 12), role: 'farmer' }); return { token: signToken(user), user: safeUser(user) }; };
+export const login = async ({ email, password }) => { const user = await User.findOne({ email: email.trim().toLowerCase() }).select('+password'); if (!user || !(await bcrypt.compare(password, user.password)) || user.status !== 'active') throw new AppError(401, 'Invalid email or password', 'INVALID_CREDENTIALS'); return { token: signToken(user), user: safeUser(user) }; };
+export { safeUser };

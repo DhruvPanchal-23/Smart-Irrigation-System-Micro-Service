@@ -1,0 +1,2 @@
+import { Router } from 'express'; import { authenticate } from '../middleware/auth.middleware.js'; import { validateObjectId } from '../middleware/validation.middleware.js'; import * as controller from '../controllers/recommendation.controller.js';
+const router = Router(); router.use(authenticate); router.post('/:farmId', validateObjectId(), controller.generateRecommendation); router.get('/:farmId', validateObjectId(), controller.getLatestRecommendation); router.get('/:farmId/history', validateObjectId(), controller.getRecommendationHistory); export default router;

@@ -1,0 +1,18 @@
+{
+  "name": "smart-irrigation-microservices",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/start.js",
+    "start": "node scripts/start.js",
+    "gateway": "node gateway/server.js",
+    "identity": "node shared/serviceServer.js identity",
+    "farm": "node shared/serviceServer.js farm",
+    "weather": "node shared/serviceServer.js weather",
+    "recommendation": "node shared/serviceServer.js recommendation",
+    "test": "node --test test/*.test.js shared/test/*.test.js",
+    "test:integration": "node shared/test/integration-smoke.js",
+    "build": "npm --prefix frontend run build",
+    "lint": "npm --prefix frontend run lint"
+  }
+}

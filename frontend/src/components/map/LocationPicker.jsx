@@ -1,0 +1,4 @@
+import { MapContainer,Marker,TileLayer,useMapEvents } from 'react-leaflet'; import L from 'leaflet';
+const icon=L.divIcon({className:'map-pin',html:'<span></span>',iconSize:[24,24],iconAnchor:[12,24]});
+function Click({value,onChange}){useMapEvents({click(e){onChange({latitude:Number(e.latlng.lat.toFixed(6)),longitude:Number(e.latlng.lng.toFixed(6))});}});return value.latitude!==''&&value.longitude!==''?<Marker icon={icon} position={[Number(value.latitude),Number(value.longitude)]}/>:null;}
+export default function LocationPicker({value,onChange}){return <div className="map-wrap"><MapContainer center={[22.5,79]} zoom={5} scrollWheelZoom><TileLayer attribution='&copy; OpenStreetMap contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/><Click value={value} onChange={onChange}/></MapContainer><small>Click the map to set farm coordinates.</small></div>;}

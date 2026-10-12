@@ -1,0 +1,1 @@
+import api from './api.js'; export const generateRecommendation = (id) => api.post(`/recommendations/${id}`).then((r) => r.data.data); export const getLatestRecommendation = (id) => api.get(`/recommendations/${id}`).then((r) => r.data.data); export const getRecommendationHistory = (id) => api.get(`/recommendations/${id}/history`).then((r) => r.data.data);
